@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PassGen - AES-128 암/복호화</title>
+  <link rel="stylesheet" href="../assets/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.2.0/crypto-js.min.js"></script>
+</head>
+<body class="min-h-screen p-4 md:p-8">
+  <div class="max-w-3xl mx-auto">
+    <header class="flex items-center justify-between mb-8">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-blue-600 flex items-center justify-center text-white font-bold text-xl">P</div>
+        <h1 class="text-2xl font-bold">PassGen</h1>
+      </div>
+      <nav id="nav" class="flex gap-2"></nav>
+    </header>
+
+    <main class="card p-6 md:p-8">
+      <h2 class="text-xl font-bold mb-6">AES-128 문자열 암/복호화</h2>
+
+      <div class="mb-4 p-4 rounded-lg bg-blue-50 text-sm text-blue-800">
+        <p>알고리즘: AES-128 / 모드: CBC / 패딩: PKCS7 / 평문 인코딩: UTF-8 / 암호문 출력: BASE64</p>
+      </div>
+
+      <!-- 키 입력 -->
+      <div class="mb-6">
+        <label class="block font-semibold mb-2">비밀키 (Key)</label>
+        <input type="password" id="keyInput" placeholder="비밀키를 입력하세요" class="w-full p-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <p class="text-xs text-gray-500 mt-2">AES-128은 16바이트 키를 권장합니다. 입력이 짧으면 CryptoJS가 내부적으로 처리합니다.</p>
+      </div>
+
+      <!-- IV 입력 -->
+      <div class="mb-6">
+        <label class="block font-semibold mb-2">초기화 벡터 (IV)</label>
+        <input type="text" id="ivInput" placeholder="16바이트 IV를 입력하세요 (비워두면 자동 생성)" class="w-full p-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+        <p class="text-xs text-gray-500 mt-2">IV는 암호문 앞에 자동으로 붙여 복호화 시 사용됩니다. 직접 입력하려면 16바이트 문자열을 권장합니다.</p>
+      </div>
+
+      <!-- 입력 영역 -->
+      <div class="mb-6">
+        <label class="block font-semibold mb-2">입력</label>
+        <textarea id="inputText" rows="6" placeholder="암호화할 평문 또는 복호화할 BASE64 암호문을 입력하세요" class="w-full p-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono"></textarea>
+      </div>
+
+      <!-- 버튼 -->
+      <div class="flex flex-wrap gap-3 mb-6">
+        <button type="button" id="encryptBtn" class="btn btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+          암호화
+        </button>
+        <button type="button" id="decryptBtn" class="btn btn-secondary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 9.9-1"></path></svg>
+          복호화
+        </button>
+        <button type="button" id="clearBtn" class="btn btn-secondary">초기화</button>
+      </div>
+
+      <!-- 결과 -->
+      <div class="mb-6">
+        <div class="flex items-center justify-between mb-2">
+          <label class="block font-semibold">결과</label>
+          <button type="button" id="copyResultBtn" class="btn btn-secondary text-sm py-1 px-3">결과 복사</button>
+        </div>
+        <textarea id="outputText" rows="6" readonly placeholder="결과가 여기에 표시됩니다" class="w-full p-3 rounded-lg border border-gray-200 bg-gray-50 font-mono"></textarea>
+      </div>
+
+      <!-- 파일 -->
+      <div class="border-t border-gray-200 pt-6">
+        <h3 class="font-semibold mb-4">파일 처리</h3>
+        <div class="flex flex-wrap items-center gap-4">
+          <label class="btn btn-secondary cursor-pointer">
+            <input type="file" id="fileInput" accept=".aes,.txt" class="hidden">
+            파일 업로드
+          </label>
+          <button type="button" id="downloadBtn" class="btn btn-secondary">결과 다운로드 (.aes)</button>
+        </div>
+        <p class="text-sm text-gray-500 mt-3">암호화 결과는 .aes 파일로, 복호화 입력은 .aes 또는 .txt 파일로 업로드할 수 있습니다.</p>
+      </div>
+    </main>
+  </div>
+
+  <script src="../assets/common.js"></script>
+  <script src="encrypt.js"></script>
+</body>
+</html>
