@@ -42,5 +42,30 @@ function renderNav(activePage) {
   nav.innerHTML = `
     <a href="../generate/" class="nav-link ${activePage === 'generate' ? 'active' : ''}">패스워드 생성</a>
     <a href="../encrypt/" class="nav-link ${activePage === 'encrypt' ? 'active' : ''}">AES 암/복호화</a>
+    <button type="button" id="themeToggle" class="theme-toggle" title="테마 전환" aria-label="테마 전환">
+      <span class="theme-knob"></span>
+    </button>
   `;
+  initThemeToggle();
+}
+
+function getPreferredTheme() {
+  if (localStorage.getItem('theme')) return localStorage.getItem('theme');
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+}
+
+function applyTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+}
+
+function initThemeToggle() {
+  const toggle = document.getElementById('themeToggle');
+  if (!toggle) return;
+  applyTheme(getPreferredTheme());
+  toggle.addEventListener('click', () => {
+    const current = document.documentElement.getAttribute('data-theme') || 'light';
+    const next = current === 'dark' ? 'light' : 'dark';
+    localStorage.setItem('theme', next);
+    applyTheme(next);
+  });
 }

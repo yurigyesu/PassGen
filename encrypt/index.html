@@ -21,7 +21,7 @@
     <main class="card p-6 md:p-8">
       <h2 class="text-xl font-bold mb-6">AES-128 문자열 암/복호화</h2>
 
-      <div class="mb-4 p-4 rounded-lg bg-blue-50 text-sm text-blue-800">
+      <div class="mb-4 p-4 rounded-lg bg-info text-sm">
         <p>알고리즘: AES-128 / 모드: CBC / 패딩: PKCS7 / 평문 인코딩: UTF-8 / 암호문 출력: BASE64</p>
       </div>
 
@@ -29,25 +29,25 @@
       <div class="mb-6">
         <label class="block font-semibold mb-2">비밀키 (Key)</label>
         <input type="password" id="keyInput" placeholder="비밀키를 입력하세요" class="w-full p-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        <p class="text-xs text-gray-500 mt-2">AES-128은 16바이트 키를 권장합니다. 입력이 짧으면 CryptoJS가 내부적으로 처리합니다.</p>
+        <p class="text-xs text-muted mt-2">AES-128은 16바이트 키를 권장합니다. 입력이 짧으면 CryptoJS가 내부적으로 처리합니다.</p>
       </div>
 
       <!-- IV 입력 (접기/펼치기) -->
       <div class="mb-6">
-        <button type="button" id="ivToggleBtn" class="flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700 focus:outline-none" aria-expanded="false" aria-controls="ivPanel">
+        <button type="button" id="ivToggleBtn" class="flex items-center gap-2 text-sm font-semibold text-primary hover:opacity-80 focus:outline-none" aria-expanded="false" aria-controls="ivPanel">
           <svg id="ivToggleIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="transition: transform 0.2s ease;"><polyline points="6 9 12 15 18 9"></polyline></svg>
           <span>고급: 초기화 벡터 (IV) 직접 입력</span>
         </button>
         <div id="ivPanel" class="mt-3" style="display: none;">
-          <input type="text" id="ivInput" placeholder="16바이트 IV를 입력하세요 (비워두면 자동 생성)" class="w-full p-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
-          <p class="text-xs text-gray-500 mt-2">IV는 암호문 앞에 자동으로 붙여 복호화 시 사용됩니다. 직접 입력하려면 16바이트 문자열을 권장합니다.</p>
+          <input type="text" id="ivInput" placeholder="16바이트 IV를 입력하세요 (비워두면 자동 생성)" class="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <p class="text-xs text-muted mt-2">IV는 암호문 앞에 자동으로 붙여 복호화 시 사용됩니다. 직접 입력하려면 16바이트 문자열을 권장합니다.</p>
         </div>
       </div>
 
       <!-- 입력 영역 -->
       <div class="mb-6">
         <label class="block font-semibold mb-2">입력</label>
-        <textarea id="inputText" rows="6" placeholder="암호화할 평문 또는 복호화할 BASE64 암호문을 입력하세요" class="w-full p-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono"></textarea>
+        <textarea id="inputText" rows="6" placeholder="암호화할 평문 또는 복호화할 BASE64 암호문을 입력하세요" class="w-full p-3 rounded-lg border focus:outline-none focus:ring-2 focus:ring-blue-500 font-mono"></textarea>
       </div>
 
       <!-- 버튼 -->
@@ -69,11 +69,11 @@
           <label class="block font-semibold">결과</label>
           <button type="button" id="copyResultBtn" class="btn btn-secondary text-sm py-1 px-3">결과 복사</button>
         </div>
-        <textarea id="outputText" rows="6" readonly placeholder="결과가 여기에 표시됩니다" class="w-full p-3 rounded-lg border border-gray-200 bg-gray-50 font-mono"></textarea>
+        <textarea id="outputText" rows="6" readonly placeholder="결과가 여기에 표시됩니다" class="w-full p-3 rounded-lg border font-mono"></textarea>
       </div>
 
       <!-- 파일 -->
-      <div class="border-t border-gray-200 pt-6">
+      <div class="border-t pt-6">
         <h3 class="font-semibold mb-4">파일 처리</h3>
         <div class="flex flex-wrap items-center gap-4">
           <label class="btn btn-secondary cursor-pointer">
@@ -82,7 +82,7 @@
           </label>
           <button type="button" id="downloadBtn" class="btn btn-secondary">결과 다운로드 (.aes)</button>
         </div>
-        <p class="text-sm text-gray-500 mt-3">암호화 결과는 .aes 파일로, 복호화 입력은 .aes 또는 .txt 파일로 업로드할 수 있습니다.</p>
+        <p class="text-sm text-muted mt-3">암호화 결과는 .aes 파일로, 복호화 입력은 .aes 또는 .txt 파일로 업로드할 수 있습니다.</p>
       </div>
     </main>
   </div>

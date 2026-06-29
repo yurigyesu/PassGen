@@ -27,7 +27,7 @@
           <span class="text-2xl font-bold text-blue-600"><span id="lengthValue">16</span></span>
         </div>
         <input type="range" id="lengthSlider" min="8" max="120" value="16" class="slider">
-        <div class="flex justify-between text-sm text-gray-500 mt-2">
+        <div class="flex justify-between text-sm text-muted mt-2">
           <span>8</span>
           <span>120</span>
         </div>
@@ -43,19 +43,19 @@
       <div class="mb-8">
         <h3 class="font-semibold mb-4">포함할 문자</h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <label class="flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-50">
+          <label class="char-option flex items-center gap-3 p-3 rounded-lg border cursor-pointer">
             <input type="checkbox" id="useLower" checked class="w-5 h-5 text-blue-600 rounded">
             <span>영소문자 (a-z)</span>
           </label>
-          <label class="flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-50">
+          <label class="char-option flex items-center gap-3 p-3 rounded-lg border cursor-pointer">
             <input type="checkbox" id="useUpper" checked class="w-5 h-5 text-blue-600 rounded">
             <span>영대문자 (A-Z)</span>
           </label>
-          <label class="flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-50">
+          <label class="char-option flex items-center gap-3 p-3 rounded-lg border cursor-pointer">
             <input type="checkbox" id="useDigits" checked class="w-5 h-5 text-blue-600 rounded">
             <span>숫자 (0-9)</span>
           </label>
-          <label class="flex items-center gap-3 p-3 rounded-lg border border-gray-200 cursor-pointer hover:bg-gray-50">
+          <label class="char-option flex items-center gap-3 p-3 rounded-lg border cursor-pointer">
             <input type="checkbox" id="useSymbols" checked class="w-5 h-5 text-blue-600 rounded">
             <span>특수문자</span>
           </label>
@@ -85,7 +85,7 @@
           </button>
         </div>
         <div class="flex gap-2 items-stretch">
-          <div id="passwordDisplay" class="flex-1 min-h-[4rem] p-4 rounded-lg border border-gray-200 bg-gray-50 font-mono text-lg break-all leading-relaxed"></div>
+          <div id="passwordDisplay" class="flex-1 min-h-[4rem] p-4 rounded-lg border font-mono text-lg break-all leading-relaxed"></div>
           <button type="button" id="copyBtn" class="btn btn-secondary px-3 flex items-center justify-center shrink-0" title="클립보드에 복사">
             <svg id="copyIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
           </button>
@@ -94,7 +94,7 @@
 
       <!-- 강도 표시 -->
       <div class="flex items-center gap-3 text-sm">
-        <span class="text-gray-500">패스워드 강도:</span>
+        <span class="text-muted">패스워드 강도:</span>
         <span id="strengthText" class="font-semibold">-</span>
       </div>
     </main>
