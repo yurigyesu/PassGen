@@ -9,7 +9,7 @@ github pages에서 호스팅되는 non-DB 랜덤 패스워드 생성 웹 페이�
 
 <table>
   <tr>
-    <td colspan="2">username.github.io</td>
+    <td colspan="2">username.github.io/PassGen</td>
   </tr>
   <tr>
     <td>/generate</td>
