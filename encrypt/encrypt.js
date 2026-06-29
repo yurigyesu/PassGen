@@ -115,8 +115,10 @@ function decrypt() {
 }
 
 function toggleIvPanel() {
-  const hidden = ivPanel.classList.toggle('hidden');
-  ivToggleIcon.style.transform = hidden ? 'rotate(0deg)' : 'rotate(180deg)';
+  const isHidden = ivPanel.style.display === 'none';
+  ivPanel.style.display = isHidden ? 'block' : 'none';
+  ivToggleBtn.setAttribute('aria-expanded', String(isHidden));
+  ivToggleIcon.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
 }
 
 function clearAll() {
