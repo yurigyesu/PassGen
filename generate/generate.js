@@ -1,5 +1,5 @@
 const ALL_SYMBOLS = '!"#$%\u0026\u0027()*+,-./:;<=>?@[\\]^_`{|}~';
-const COMMON_SYMBOLS = '!@#$%^';
+const COMMON_SYMBOLS = '!@#$%^&';
 
 const lengthSlider = document.getElementById('lengthSlider');
 const lengthValue = document.getElementById('lengthValue');
@@ -154,10 +154,20 @@ function updateStrength(length, poolSize) {
   strengthText.className = 'font-semibold ' + colorClass;
 }
 
+function setLength(value) {
+  lengthSlider.value = value;
+  lengthValue.textContent = value;
+  generatePassword();
+}
+
 function bindEvents() {
   lengthSlider.addEventListener('input', () => {
     lengthValue.textContent = lengthSlider.value;
     generatePassword();
+  });
+
+  document.querySelectorAll('.length-preset').forEach(btn => {
+    btn.addEventListener('click', () => setLength(btn.dataset.length));
   });
 
   [useLower, useUpper, useDigits, useSymbols].forEach(el => {
