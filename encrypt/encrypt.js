@@ -1,5 +1,8 @@
 const keyInput = document.getElementById('keyInput');
 const ivInput = document.getElementById('ivInput');
+const ivPanel = document.getElementById('ivPanel');
+const ivToggleBtn = document.getElementById('ivToggleBtn');
+const ivToggleIcon = document.getElementById('ivToggleIcon');
 const inputText = document.getElementById('inputText');
 const outputText = document.getElementById('outputText');
 const encryptBtn = document.getElementById('encryptBtn');
@@ -9,10 +12,21 @@ const copyResultBtn = document.getElementById('copyResultBtn');
 const fileInput = document.getElementById('fileInput');
 const downloadBtn = document.getElementById('downloadBtn');
 
+const NULL_IV = CryptoJS.enc.Utf8.parse('\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0');
+
 function getKey() {
   const raw = keyInput.value;
   if (!raw) throw new Error('비밀키를 입력하세요.');
   return CryptoJS.enc.Utf8.parse(raw.padEnd(16, ' ').slice(0, 16));
+}
+
+function getKeyAliStyle() {
+  const raw = keyInput.value;
+  if (!raw) throw new Error('비밀키를 입력하세요.');
+  let padded = raw;
+  while (padded.length < 16) padded += '\0';
+  if (padded.length > 16) padded = padded.substring(0, 16);
+  return CryptoJS.enc.Utf8.parse(padded);
 }
 
 function getIv() {
@@ -58,19 +72,25 @@ function encrypt() {
 
 function decrypt() {
   try {
-    const key = getKey();
     const input = inputText.value.trim();
     if (!input) throw new Error('복호화할 문자열을 입력하세요.');
 
-    let iv, cipherBase64;
+    let key, iv, cipherBase64;
+
     if (input.includes(':')) {
       const parts = input.split(':');
+      key = getKey();
       iv = base64ToWordArray(parts[0]);
       cipherBase64 = parts[1];
     } else {
       const rawIv = ivInput.value;
-      if (!rawIv) throw new Error('IV가 포함되지 않은 암호문입니다. IV를 입력하세요.');
-      iv = CryptoJS.enc.Utf8.parse(rawIv.padEnd(16, ' ').slice(0, 16));
+      if (rawIv) {
+        key = getKey();
+        iv = CryptoJS.enc.Utf8.parse(rawIv.padEnd(16, ' ').slice(0, 16));
+      } else {
+        key = getKeyAliStyle();
+        iv = NULL_IV;
+      }
       cipherBase64 = input;
     }
 
@@ -92,6 +112,11 @@ function decrypt() {
   } catch (err) {
     showToast('복호화 실패: ' + err.message);
   }
+}
+
+function toggleIvPanel() {
+  const hidden = ivPanel.classList.toggle('hidden');
+  ivToggleIcon.style.transform = hidden ? 'rotate(0deg)' : 'rotate(180deg)';
 }
 
 function clearAll() {
@@ -140,6 +165,7 @@ function init() {
   copyResultBtn.addEventListener('click', () => copyToClipboard(outputText.value, '결과가 복사되었습니다.'));
   downloadBtn.addEventListener('click', downloadResult);
   fileInput.addEventListener('change', handleFileUpload);
+  ivToggleBtn.addEventListener('click', toggleIvPanel);
 }
 
 init();

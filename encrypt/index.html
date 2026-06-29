@@ -32,11 +32,16 @@
         <p class="text-xs text-gray-500 mt-2">AES-128은 16바이트 키를 권장합니다. 입력이 짧으면 CryptoJS가 내부적으로 처리합니다.</p>
       </div>
 
-      <!-- IV 입력 -->
+      <!-- IV 입력 (접기/펼치기) -->
       <div class="mb-6">
-        <label class="block font-semibold mb-2">초기화 벡터 (IV)</label>
-        <input type="text" id="ivInput" placeholder="16바이트 IV를 입력하세요 (비워두면 자동 생성)" class="w-full p-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
-        <p class="text-xs text-gray-500 mt-2">IV는 암호문 앞에 자동으로 붙여 복호화 시 사용됩니다. 직접 입력하려면 16바이트 문자열을 권장합니다.</p>
+        <button type="button" id="ivToggleBtn" class="flex items-center gap-2 text-sm font-semibold text-blue-600 hover:text-blue-700 focus:outline-none">
+          <svg id="ivToggleIcon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          <span>고급: 초기화 벡터 (IV) 직접 입력</span>
+        </button>
+        <div id="ivPanel" class="hidden mt-3">
+          <input type="text" id="ivInput" placeholder="16바이트 IV를 입력하세요 (비워두면 자동 생성)" class="w-full p-3 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-blue-500">
+          <p class="text-xs text-gray-500 mt-2">IV는 암호문 앞에 자동으로 붙여 복호화 시 사용됩니다. 직접 입력하려면 16바이트 문자열을 권장합니다.</p>
+        </div>
       </div>
 
       <!-- 입력 영역 -->
